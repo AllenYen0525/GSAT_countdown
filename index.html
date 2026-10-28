@@ -3,10 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>測試頁面</title>
+  <title>學測倒數</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#121212">
+  <link rel="apple-touch-icon" href="./icon.jpg">
+  <link rel="stylesheet" href="./style.css">
 </head>
-<body style="background-color: #121212; color: #ffffff; text-align: center; padding-top: 50px;">
-  <h1>測試成功！</h1>
-  <p>這是你的第一個 PWA 網頁。</p>
+<body>
+  <div class="container">
+    <header>
+      <h1 id="target-title">距離 117 年學測</h1>
+      <p id="quote" class="quote">「今天的努力，是明天選擇的底氣。」</p>
+    </header>
+
+    <main class="countdown-card">
+      <div class="time-block">
+        <span id="days">00</span>
+        <label>天</label>
+      </div>
+      <div class="time-sub">
+        <span id="hours">00</span> 時 
+        <span id="minutes">00</span> 分 
+        <span id="seconds">00</span> 秒
+      </div>
+    </main>
+
+    <section class="progress-section">
+      <div class="progress-bar-bg">
+        <div id="progress-bar" class="progress-bar-fill"></div>
+      </div>
+      <p id="progress-text" class="progress-text">準備倒數中...</p>
+    </section>
+  </div>
+
+  <script>
+    // 預設學測日期 (設為 2027 年 1 月 22 日 09:00)
+    const TARGET_DATE = new Date('2027-01-22T09:00:00');
+    // 高三準備開端 (設為 2026 年 7 月 1 日計算進度)
+    const START_DATE = new Date('2026-07-01T00:00:00');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = TARGET_DATE - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('minutes').innerText = "00";
+        document.getElementById('seconds').innerText = "00";
+        document.getElementById('target-title').innerText = "學測登場！加油！";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('days').innerText = String(days).padStart(2, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+      const totalTime = TARGET_DATE - START_DATE;
+      const passedTime = now - START_DATE;
+      let percentage = (passedTime / totalTime) * 100;
+      percentage = Math.max(0, Math.min(100, percentage));
+
+      document.getElementById('progress-bar').style.width = percentage.toFixed(1) + '%';
+      document.getElementById('progress-text').innerText = `高三備考時光已過 ${percentage.toFixed(1)}%`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('PWA Service Worker 註冊成功！'))
+        .catch(err => console.error('Service Worker 註冊失敗:', err));
+    }
+  </script>
 </body>
 </html>
