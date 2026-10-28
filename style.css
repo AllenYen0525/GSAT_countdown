@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #a0a0a0;
+  letter-spacing: 1px;
+}
+
+.quote {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.countdown-card {
+  background: #1e1e1e;
+  border-radius: 24px;
+  padding: 40px 20px;
+  margin: 30px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid #2a2a2a;
+}
+
+.time-block {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.time-block span {
+  font-size: 5rem;
+  font-weight: 800;
+  color: #4da6ff;
+  line-height: 1;
+}
+
+.time-block label {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.time-sub {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #cccccc;
+  font-family: monospace;
+}
+
+.progress-section {
+  margin-top: 20px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4da6ff, #0066cc);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 10px;
+}
